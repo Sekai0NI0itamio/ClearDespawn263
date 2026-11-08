@@ -1,0 +1,17 @@
+NOTICE
+
+ClearDespawn (Itamio port for Minecraft 26.3)
+
+This mod is an unofficial port of "ClearDespawn" by StrikerRockers-Mods
+(author: StrikerRocker).
+- Original Modrinth: https://modrinth.com/mod/cleardespawn
+- Original source: https://github.com/StrikerRockers-Mods/ClearDespawn/
+- License: MIT
+
+All credit for the original concept, design, and logic goes to StrikerRocker
+and the StrikerRockers-Mods team. This port was created by Itamio to bring the
+functionality to Minecraft 26.3 (Fabric) because the original mod is not
+updated to this version (max Minecraft 1.20.2).
+
+Itamio does not take credit for any of the original assets or logic.
+The code was self-updated to be compatible with Minecraft 26.3 (Fabric).
