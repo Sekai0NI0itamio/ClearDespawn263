@@ -1,6 +1,6 @@
-# Clear Despawn — Modern Port for Minecraft 26.3 (Fabric)
+# Clear Despawn — Modern Port for Minecraft 1.21.11 (NeoForge)
 
-![Mod loader: Fabric](https://img.shields.io/badge/modloader-Fabric-1976d2?style=for-the-badge)
+![Mod loader: Fabric](https://img.shields.io/badge/modloader-NeoForge-1976d2?style=for-the-badge)
 ![Minecraft: 26.3](https://img.shields.io/badge/Minecraft-26.3-green?style=for-the-badge)
 ![GitHub license](https://img.shields.io/github/license/Sekai0NI0itamio/ClearDespawn263?style=for-the-badge)
 
@@ -10,7 +10,7 @@ Clear Despawn makes dropped items visibly blink/flash as they approach
 their despawn time, warning you to pick them up in time. No more
 returning to a farm or battlefield to find your drops silently gone.
 
-Now with a **modern port for Minecraft 26.3 (Fabric)**, rebuilt for
+Now with a **modern port for Minecraft 1.21.11 (NeoForge)**, rebuilt for
 26.3's new render-state rendering pipeline (`ItemEntityRenderState`,
 `extractRenderState`/`submit`) — the blink decision is captured when
 the render state is extracted and applied when the item is submitted.

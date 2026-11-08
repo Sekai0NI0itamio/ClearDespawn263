@@ -7,7 +7,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import net.fabricmc.loader.api.FabricLoader;
+import net.neoforged.fml.loading.FMLPaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ public class ModConfig {
     }
 
     public static ModConfig load() {
-        Path dir = FabricLoader.getInstance().getConfigDir();
+        Path dir = FMLPaths.CONFIGDIR.get();
         Path file = dir.resolve("itamio_cleardespawn.json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         ModConfig config = new ModConfig();
