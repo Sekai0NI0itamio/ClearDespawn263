@@ -1,31 +1,60 @@
 package itamio.cleardespawn;
 
-import net.minecraft.client.renderer.culling.Frustum;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
+import net.minecraft.client.renderer.entity.state.ItemEntityRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.entity.item.ItemEntity;
 
+/**
+ * Port of ClearDespawn by StrikerRockers-Mods (MIT).
+ * In 26.3 rendering uses the render-state pipeline: the blink decision is
+ * captured in extractRenderState and applied in submit.
+ */
 public class BlinkingItemEntityRenderer extends ItemEntityRenderer {
+
+    private static final class BlinkingState extends ItemEntityRenderState {
+        boolean blink;
+    }
 
     public BlinkingItemEntityRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public boolean shouldRender(ItemEntity entity, Frustum frustum, double x, double y, double z) {
-        // Direct port of the ClearDespawn blink logic by StrikerRocker:
-        // when an item is close to despawning, skip rendering on/off so it visibly blinks.
+    public ItemEntityRenderState createRenderState() {
+        return new BlinkingState();
+    }
+
+    @Override
+    public void extractRenderState(ItemEntity entity, ItemEntityRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+        if (state instanceof BlinkingState blinking) {
+            blinking.blink = shouldBlink(entity);
+        }
+    }
+
+    @Override
+    public void submit(ItemEntityRenderState state, PoseStack poseStack,
+                       SubmitNodeCollector collector, CameraRenderState cameraState) {
+        if (state instanceof BlinkingState blinking && blinking.blink) {
+            return;
+        }
+        super.submit(state, poseStack, collector, cameraState);
+    }
+
+    private static boolean shouldBlink(ItemEntity entity) {
         int remainingTime = ClearDespawnClient.CONFIG.despawnTime - entity.getAge();
         if (remainingTime <= 20 * ClearDespawnClient.CONFIG.flashStartTime) {
             if (ClearDespawnClient.CONFIG.urgentFlash) {
                 int flashFactor = Math.max(2, remainingTime / 20);
-                if (remainingTime % flashFactor < 0.5f * flashFactor) {
-                    return false;
-                }
-            } else if (remainingTime % 20 < 10) {
-                return false;
+                return remainingTime % flashFactor < 0.5f * flashFactor;
+            } else {
+                return remainingTime % 20 < 10;
             }
         }
-        return super.shouldRender(entity, frustum, x, y, z);
+        return false;
     }
 }
