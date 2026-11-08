@@ -13,48 +13,48 @@ import net.minecraft.world.entity.item.ItemEntity;
  * In 1.21.11 rendering uses the render-state pipeline: the blink decision is
  * captured in extractRenderState and applied in submit.
  */
-public class BlinkingItemEntityRenderer extends ItemEntityRenderer {{
+public class BlinkingItemEntityRenderer extends ItemEntityRenderer {
 
-    private static final class BlinkingState extends ItemEntityRenderState {{
+    private static final class BlinkingState extends ItemEntityRenderState {
         boolean blink;
-    }}
+    }
 
-    public BlinkingItemEntityRenderer(EntityRendererProvider.Context context) {{
+    public BlinkingItemEntityRenderer(EntityRendererProvider.Context context) {
         super(context);
-    }}
+    }
 
     @Override
-    public ItemEntityRenderState createRenderState() {{
+    public ItemEntityRenderState createRenderState() {
         return new BlinkingState();
-    }}
+    }
 
     @Override
-    public void extractRenderState(ItemEntity entity, ItemEntityRenderState state, float partialTicks) {{
+    public void extractRenderState(ItemEntity entity, ItemEntityRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
-        if (state instanceof BlinkingState blinking) {{
+        if (state instanceof BlinkingState blinking) {
             blinking.blink = shouldBlink(entity);
-        }}
-    }}
+        }
+    }
 
     @Override
     public void submit(ItemEntityRenderState state, PoseStack poseStack,
-                       SubmitNodeCollector collector, CameraRenderState cameraState) {{
-        if (state instanceof BlinkingState blinking && blinking.blink) {{
+                       SubmitNodeCollector collector, CameraRenderState cameraState) {
+        if (state instanceof BlinkingState blinking && blinking.blink) {
             return;
-        }}
+        }
         super.submit(state, poseStack, collector, cameraState);
-    }}
+    }
 
-    private static boolean shouldBlink(ItemEntity entity) {{
+    private static boolean shouldBlink(ItemEntity entity) {
         int remainingTime = ClearDespawnClient.CONFIG.despawnTime - entity.getAge();
-        if (remainingTime <= 20 * ClearDespawnClient.CONFIG.flashStartTime) {{
-            if (ClearDespawnClient.CONFIG.urgentFlash) {{
+        if (remainingTime <= 20 * ClearDespawnClient.CONFIG.flashStartTime) {
+            if (ClearDespawnClient.CONFIG.urgentFlash) {
                 int flashFactor = Math.max(2, remainingTime / 20);
                 return remainingTime % flashFactor < 0.5f * flashFactor;
-            }} else {{
+            } else {
                 return remainingTime % 20 < 10;
-            }}
-        }}
+            }
+        }
         return false;
-    }}
-}}
+    }
+}
