@@ -19,6 +19,6 @@ public class ClearDespawnClient {
     }
 
     private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.register(EntityType.ITEM, BlinkingItemEntityRenderer::new);
+        event.registerEntityRenderer(EntityType.ITEM, BlinkingItemEntityRenderer::new);
     }
 }
