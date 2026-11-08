@@ -1,7 +1,7 @@
 package itamio.cleardespawn;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.client.event.RegisterEntityRenderersEvent;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -18,7 +18,7 @@ public class ClearDespawnClient {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderers);
     }
 
-    private void registerRenderers(RegisterEntityRenderersEvent event) {
+    private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.register(EntityType.ITEM, BlinkingItemEntityRenderer::new);
     }
 }
