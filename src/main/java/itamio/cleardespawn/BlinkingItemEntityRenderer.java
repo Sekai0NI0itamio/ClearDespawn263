@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.client.renderer.entity.state.ItemEntityRenderState;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.world.entity.item.ItemEntity;
 
 /**
@@ -24,7 +24,7 @@ public class BlinkingItemEntityRenderer extends ItemEntityRenderer {
     }
 
     @Override
-    public ItemEntityRenderState createRenderState(ItemEntity entity, float partialTicks) {
+    public ItemEntityRenderState createRenderState() {
         return new BlinkingState();
     }
 
